@@ -18,7 +18,7 @@ All validic objects -- 'biometrics','diabetes','fitness','nutrition','routine','
 ***
 
 
-** not used interface ** 
+** not used interface **
 
 interface  |  introduce
 ------------------------|-------------------------------------------------------

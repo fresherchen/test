@@ -3,7 +3,7 @@
 ** used interface **
 
 function | description | interface 
----------------|--------------|-----------|-------------------------------------
+---------------|--------------|-----------
 getValidicUser | get the current validic user info from the table 'ValidicUser', including patient id, validic user id and validic user token properties | get /api/ValidicUsers/getUser 
 provisionUser | used to create a user's profile and exchange the user id (patientId) for a validic id (validicUserId) on Validic | post /api/ValidicUsers/provisionUser  params: userId 
 connectDevice | validate the user's token from table ValidicUser before adding devices, return null when it is correct, or return new token when it is invalid | get /api/ValidicUsers/connectDevice params: userToken, validicUserId 

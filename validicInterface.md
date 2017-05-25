@@ -32,6 +32,7 @@ Mobile  |  Android Documentation/Cordova Documentation
 ** Resource & Contact Information **
 
 Validic API documentation: https://docs.validic.com/v1.2016-03-01/docs,
+
 ValidicNodeJS repository: https://github.com/Validic/ValidicNodeJS.
 
 Any question about this documentation you can contact me by email jack.chen@claifyhealth.com

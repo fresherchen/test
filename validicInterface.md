@@ -1,6 +1,6 @@
-# validic interface readme. version 0.1
+# Validic Interface Readme. Version 0.1
 
-** used interface **
+** Used Interface **
 
 function | description | interface | validic interface
 ---------------|--------------|-----------|----------------
@@ -18,7 +18,7 @@ All validic objects -- 'biometrics','diabetes','fitness','nutrition','routine','
 ***
 
 
-** not used interface **
+** Not Used Interface **
 
 interface  |  description
 ------------------------|-------------------------------------------------------
@@ -29,7 +29,8 @@ Validic Connect Partner API | Validic Connect allows developers of health apps a
 Mobile  |  Android Documentation/Cordova Documentation
 
 
-** resource & contact information **
+** Resource & Contact Information **
+
 Validic API documentation: https://docs.validic.com/v1.2016-03-01/docs,
 ValidicNodeJS repository: https://github.com/Validic/ValidicNodeJS.
 

@@ -63,7 +63,7 @@ node_modules/.bin/newman run test/postman/mock_journeys/Mock_Journeys.postman_co
 or `taskkill /F /IM node.exe` or `fuser -k 3000/tcp` in linux
 echo 'Successful init hospital database!'
 
-### Set the ssl=on and add certificates(server.key/server.crt/root.crt) to $PGDATA server directory, reference document link(in chinese): https://blog.csdn.net/zhu4674548/article/details/71248365
+### Set ssl=on and add certificates(server.key/server.crt/root.crt) to $PGDATA server directory, reference document link(in chinese): https://blog.csdn.net/zhu4674548/article/details/71248365
 	server.key //Private Key
 		Generate server.key:
 		`openssl genrsa -des3 -out server.key 1024`

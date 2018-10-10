@@ -22,6 +22,47 @@ write update case:
 ## Session two: create and set new database
 
 ### Database name is hospital, install Postgresql in computer first. 
+
+### 1.	Synchronize code, get data package: minimal2.backup.gz
+`git pull -f https://github.com/clarifyhealth/clarify-hospital.git`
+
+### 2. Force disconnection of all clients connected to this database if existed
+ `psql -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'hospital';"`
+
+### 3. Drop and create database hospital;
+`psql -c "drop database hospital" -U postgres
+ psql -c "create database hospital;" -U postgres`
+
+### 4. Export environment
+`export DB=hospital HOSPITAL_HOME=/c/workspace/clarify-hospital
+ export DATABASE_URL=postgres://clarify:IaCA61RaFsA74GeR@localhost:5432/$DB
+ export DATABASE_ADMIN_URL=postgres://clarify:IaCA61RaFsA74GeR@localhost:5432/$DB`
+
+### 5. Gzip minimal data to hospital database
+`cat clarify-hospital/data/database/create_roles.sql | psql -U postgres -d hospital --set db=hospital --set role=clarify
+ gzip -cd clarify-hospital/data/database/minimal2.backup.gz | psql -U postgres -d hospital`
+
+### 6. Populate dev db, give execution permission to the files in /clarify-hospital/database folder by `chmod 777 -R clarify-hospital/database/*`
+`./clarify-hospital/database/scripts/load_app_data_client.sh minimal`
+
+### 7. Run upgrade and migrade case to update data in database
+`cd /c/workspace/clarify-hospital/
+echo "Run upgrade-database and migrate-data scripts ..."
+database/generate/generate_one.sh "New Target Price Analysis DDL.sql"
+node scripts/upgrade-database.js
+node scripts/migrate-data.js`
+### 8. Finally run test case to recreate patients' journey
+`echo "Run test case to recreate patients' journey ..."
+ALLOW_HTTP=true nohup node server/server.js > /dev/null 2>&1 &
+sleep 5
+node_modules/.bin/newman run test/postman/mock_journeys/Mock_Journeys.postman_collection.json --environment test/postman/mock_journeys/Mock_Journeys.postman_environment.json  --bail`
+
+### Kill server process on 3000 port
+`netstat -ano | findstr :yourPortNumber
+ taskkill /PID typeyourPIDhere /F`
+or `taskkill /F /IM node.exe` or `fuser -k 3000/tcp` in linux
+echo 'Successful init hospital database!'
+
 ### Set the ssl=on and add certificates(server.key/server.crt/root.crt) to $PGDATA server directory, reference document link(in chinese): https://blog.csdn.net/zhu4674548/article/details/71248365
 	server.key //Private Key
 		Generate server.key:
@@ -66,46 +107,6 @@ write update case:
 
 ### connect database by using this path:
 	"localdb":"postgres://clarify:IaCA61RaFsA74GeR@localhost:5432/hospital?ssl=true"
-
-### 1.	Synchronize code, get data package: minimal2.backup.gz
-`git pull -f https://github.com/clarifyhealth/clarify-hospital.git`
-
-### 2. Force disconnection of all clients connected to this database if existed
- `psql -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'hospital';"`
-
-### 3. Drop and create database hospital;
-`psql -c "drop database hospital" -U postgres
- psql -c "create database hospital;" -U postgres`
-
-### 4. Export environment
-`export DB=hospital HOSPITAL_HOME=/c/workspace/clarify-hospital
- export DATABASE_URL=postgres://clarify:IaCA61RaFsA74GeR@localhost:5432/$DB
- export DATABASE_ADMIN_URL=postgres://clarify:IaCA61RaFsA74GeR@localhost:5432/$DB`
-
-### 5. Gzip minimal data to hospital database
-`cat clarify-hospital/data/database/create_roles.sql | psql -U postgres -d hospital --set db=hospital --set role=clarify
- gzip -cd clarify-hospital/data/database/minimal2.backup.gz | psql -U postgres -d hospital`
-
-### 6. Populate dev db, give execution permission to the files in /clarify-hospital/database folder by `chmod 777 -R clarify-hospital/database/*`
-`./clarify-hospital/database/scripts/load_app_data_client.sh minimal`
-
-### 7. Run upgrade and migrade case to update data in database
-`cd /c/workspace/clarify-hospital/
-echo "Run upgrade-database and migrate-data scripts ..."
-database/generate/generate_one.sh "New Target Price Analysis DDL.sql"
-node scripts/upgrade-database.js
-node scripts/migrate-data.js`
-### 8. Finally run test case to recreate patients' journey
-`echo "Run test case to recreate patients' journey ..."
-ALLOW_HTTP=true nohup node server/server.js > /dev/null 2>&1 &
-sleep 5
-node_modules/.bin/newman run test/postman/mock_journeys/Mock_Journeys.postman_collection.json --environment test/postman/mock_journeys/Mock_Journeys.postman_environment.json  --bail`
-
-### Kill server process on 3000 port
-`netstat -ano | findstr :yourPortNumber
- taskkill /PID typeyourPIDhere /F`
-or `taskkill /F /IM node.exe` or `fuser -k 3000/tcp` in linux
-echo 'Successful init hospital database!'
 
 ### update upgrade cases and rerun step7 until it is okey
 

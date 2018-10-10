@@ -1,16 +1,22 @@
 # Create a local demo database and backup (windows)
 
 ## Session one: write updating database cases
+
 write update case:
+
 	1.Add file: /clarify-hospital/common/models/IOSHealthRecords.json
+
 	2.Add code to file /clarify-hospital/database/tables/create_tables.sql
+
 	`CREATE TABLE IF NOT EXISTS ios_health_records (
 	  id uuid,
 	  patient_id uuid NOT NULL,
 	  record jsonb NOT NULL,
 	  PRIMARY KEY (record)
 	);`
+
 	3.Add code to file /clarify-hospital/database/tables/drop_tables.sql
+
 	`DROP TABLE IF EXISTS ios_health_records CASCADE;`
 
 ## Session two: create and set new database

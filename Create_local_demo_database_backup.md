@@ -1,19 +1,19 @@
 # Create a local demo database and backup (windows)
 
-## Section one: write updating database cases
+## Session one: write updating database cases
 write update case:
 	1.Add file: /clarify-hospital/common/models/IOSHealthRecords.json
 	2.Add code to file /clarify-hospital/database/tables/create_tables.sql
-	CREATE TABLE IF NOT EXISTS ios_health_records (
+	`CREATE TABLE IF NOT EXISTS ios_health_records (
 	  id uuid,
 	  patient_id uuid NOT NULL,
 	  record jsonb NOT NULL,
 	  PRIMARY KEY (record)
-	);
+	);`
 	3.Add code to file /clarify-hospital/database/tables/drop_tables.sql
-	DROP TABLE IF EXISTS ios_health_records CASCADE;
+	`DROP TABLE IF EXISTS ios_health_records CASCADE;`
 
-## Section two: create and set new database
+## Session two: create and set new database
 
 ### Database name is hospital, install Postgresql in computer first. 
 ### Set the ssl=on and add certificates(server.key/server.crt/root.crt) to $PGDATA server directory, reference document link(in chinese): https://blog.csdn.net/zhu4674548/article/details/71248365
@@ -103,9 +103,8 @@ echo 'Successful init hospital database!'
 
 ### update upgrade cases and rerun step7 until it is okey
 
-## Section three: backup
-
-	`pg_dump -d hospital > data/database/minimal2_ios_health_records.backup`
-	`gzip data/database/minimal2_ios_health_records.backup`
+## Session three: backup
+	pg_dump -d hospital > data/database/minimal2_ios_health_records.backup
+	gzip data/database/minimal2_ios_health_records.backup
 
 	Get a .gz extension name package, finished

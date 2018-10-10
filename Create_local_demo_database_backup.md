@@ -57,7 +57,7 @@ ALLOW_HTTP=true nohup node server/server.js > /dev/null 2>&1 &
 sleep 5
 node_modules/.bin/newman run test/postman/mock_journeys/Mock_Journeys.postman_collection.json --environment test/postman/mock_journeys/Mock_Journeys.postman_environment.json  --bail`
 
-### Kill server process on 3000 port
+### Kill server process on port 3000
 `netstat -ano | findstr :yourPortNumber
  taskkill /PID typeyourPIDhere /F`
 or `taskkill /F /IM node.exe` or `fuser -k 3000/tcp` in linux

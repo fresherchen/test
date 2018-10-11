@@ -119,4 +119,4 @@ or `taskkill /F /IM node.exe` or `fuser -k 3000/tcp` in linux
 
 	Get a .gz extension name package, finished
 
-### you can use minimal2_ios_health_records.backup.gz to init a updated database
+### Now you can use minimal2_ios_health_records.backup.gz to init a updated database

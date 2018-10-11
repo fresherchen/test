@@ -101,7 +101,7 @@ node scripts/migrate-data.js`
 	"localdb":"postgres://clarify:IaCA61RaFsA74GeR@localhost:5432/hospital?ssl=true"
 
 ### 8. Finally run test case to recreate patients' journey
-`echo "Run test case to recreate patients' journey ..."
+`
 ALLOW_HTTP=true nohup node server/server.js > /dev/null 2>&1 &
 sleep 5
 node_modules/.bin/newman run test/postman/mock_journeys/Mock_Journeys.postman_collection.json --environment test/postman/mock_journeys/Mock_Journeys.postman_environment.json  --bail
@@ -111,7 +111,7 @@ node_modules/.bin/newman run test/postman/mock_journeys/Mock_Journeys.postman_co
 `netstat -ano | findstr :yourPortNumber
  taskkill /PID typeyourPIDhere /F`
 or `taskkill /F /IM node.exe` or `fuser -k 3000/tcp` in linux
-echo 'Successful init hospital database!'
+
 
 ## Session three: backup
 	pg_dump -d hospital > data/database/minimal2_ios_health_records.backup
